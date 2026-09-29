@@ -36,7 +36,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { io } from "socket.io-client";
 
 /* ───────────────────────── CONFIG ───────────────────────── */
-const API = "http://localhost:5000";
+const API = "https://web-lab-04.onrender.com";
 const socket = io(API);
 
 const NAV = [
