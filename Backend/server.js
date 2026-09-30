@@ -28,28 +28,116 @@ let orders = [
   { id: 10, item: "Motorized Standing Desk", status: "Shipped" },
   { id: 11, item: "Portable Bluetooth Speaker", status: "Processing" },
   { id: 12, item: "1TB External NVMe SSD", status: "Delivered" },
-  { id: 13, item: "Dual Monitor Arm", status: "Processing" }
+  { id: 13, item: "Dual Monitor Arm", status: "Processing" },
 ];
 
 let catalog = [
-  { id: 101, sku: "TECH-001", name: "Laptop Pro 15", price: 1299.99, stock: 45 },
-  { id: 102, sku: "TECH-002", name: "Wireless Mouse", price: 29.99, stock: 120 },
-  { id: 103, sku: "TECH-003", name: "Mechanical Keyboard", price: 89.99, stock: 85 },
-  { id: 104, sku: "TECH-004", name: "USB-C Hub", price: 45.00, stock: 200 },
-  { id: 105, sku: "TECH-005", name: "4K Ultra HD Monitor", price: 399.99, stock: 30 },
-  { id: 106, sku: "TECH-006", name: "Noise Cancelling Headphones", price: 199.99, stock: 60 },
-  { id: 107, sku: "TECH-007", name: "Ergonomic Office Chair", price: 249.99, stock: 15 },
-  { id: 108, sku: "TECH-008", name: "1080p HD Webcam", price: 59.99, stock: 90 },
-  { id: 109, sku: "TECH-009", name: "Leather Desk Mat", price: 19.99, stock: 300 },
-  { id: 110, sku: "TECH-010", name: "Motorized Standing Desk", price: 499.99, stock: 10 },
-  { id: 111, sku: "TECH-011", name: "Portable Bluetooth Speaker", price: 79.99, stock: 150 },
-  { id: 112, sku: "TECH-012", name: "1TB External NVMe SSD", price: 109.99, stock: 110 },
-  { id: 113, sku: "TECH-013", name: "Dual Monitor Arm", price: 65.00, stock: 40 }
+  {
+    id: 101,
+    sku: "TECH-001",
+    name: "Laptop Pro 15",
+    price: 1299.99,
+    stock: 45,
+  },
+  {
+    id: 102,
+    sku: "TECH-002",
+    name: "Wireless Mouse",
+    price: 29.99,
+    stock: 120,
+  },
+  {
+    id: 103,
+    sku: "TECH-003",
+    name: "Mechanical Keyboard",
+    price: 89.99,
+    stock: 85,
+  },
+  { id: 104, sku: "TECH-004", name: "USB-C Hub", price: 45.0, stock: 200 },
+  {
+    id: 105,
+    sku: "TECH-005",
+    name: "4K Ultra HD Monitor",
+    price: 399.99,
+    stock: 30,
+  },
+  {
+    id: 106,
+    sku: "TECH-006",
+    name: "Noise Cancelling Headphones",
+    price: 199.99,
+    stock: 60,
+  },
+  {
+    id: 107,
+    sku: "TECH-007",
+    name: "Ergonomic Office Chair",
+    price: 249.99,
+    stock: 15,
+  },
+  {
+    id: 108,
+    sku: "TECH-008",
+    name: "1080p HD Webcam",
+    price: 59.99,
+    stock: 90,
+  },
+  {
+    id: 109,
+    sku: "TECH-009",
+    name: "Leather Desk Mat",
+    price: 19.99,
+    stock: 300,
+  },
+  {
+    id: 110,
+    sku: "TECH-010",
+    name: "Motorized Standing Desk",
+    price: 499.99,
+    stock: 10,
+  },
+  {
+    id: 111,
+    sku: "TECH-011",
+    name: "Portable Bluetooth Speaker",
+    price: 79.99,
+    stock: 150,
+  },
+  {
+    id: 112,
+    sku: "TECH-012",
+    name: "1TB External NVMe SSD",
+    price: 109.99,
+    stock: 110,
+  },
+  {
+    id: 113,
+    sku: "TECH-013",
+    name: "Dual Monitor Arm",
+    price: 65.0,
+    stock: 40,
+  },
 ];
+
+// ==========================================
+// 0. Root Endpoint (Welcome Page)
+// ==========================================
+app.get("/", (req, res) => {
+  res.send(`
+    <div style="font-family: system-ui, sans-serif; text-align: center; padding: 50px; color: #333;">
+      <h2 style="font-size: 24px; color: #7c3aed;">SystemHub is Live 🚀</h2>
+      <p style="font-size: 16px; margin-bottom: 30px;">You have reached the backend server. To view and interact with the application, please visit the frontend dashboard.</p>
+      <a href="https://web-lab-04.vercel.app/" style="display: inline-block; padding: 12px 24px; background-color: #7c3aed; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 14px; box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);">
+        Go to Frontend Dashboard
+      </a>
+    </div>
+  `);
+});
 
 // ==========================================
 // 1. REST API (Resource Management)
 // ==========================================
+
 app.get("/api/v1/orders", (req, res) => {
   res.status(200).json({ success: true, count: orders.length, data: orders });
 });
@@ -61,7 +149,7 @@ app.get("/api/v1/catalog", (req, res) => {
 // Mock GraphQL Endpoint (To support your frontend's advanced tab)
 app.post("/graphql", (req, res) => {
   res.json({
-    data: { orders, catalog }
+    data: { orders, catalog },
   });
 });
 
@@ -74,10 +162,16 @@ app.get("/events", (req, res) => {
   res.setHeader("Connection", "keep-alive");
 
   const alerts = [
-    { message: "System healthy. All systems operational.", severity: "success" },
+    {
+      message: "System healthy. All systems operational.",
+      severity: "success",
+    },
     { message: "New inventory arrived at Warehouse B.", severity: "info" },
-    { message: "High latency detected on checkout service.", severity: "warning" },
-    { message: "Scheduled maintenance in 30 minutes.", severity: "info" }
+    {
+      message: "High latency detected on checkout service.",
+      severity: "warning",
+    },
+    { message: "Scheduled maintenance in 30 minutes.", severity: "info" },
   ];
   let alertIndex = 0;
 
@@ -104,21 +198,33 @@ app.post("/rpc", (req, res) => {
   if (method === "cancelOrder") {
     const orderIndex = orders.findIndex((o) => o.id === params.orderId);
     if (orderIndex === -1) {
-      return res.json({ jsonrpc: "2.0", error: { code: -32602, message: "Order not found" }, id });
+      return res.json({
+        jsonrpc: "2.0",
+        error: { code: -32602, message: "Order not found" },
+        id,
+      });
     }
     orders[orderIndex].status = "Cancelled";
-    
+
     // Broadcast status change to clients via WebSocket
     io.emit("orderStatusUpdate", { id: params.orderId, status: "Cancelled" });
-    
-    return res.json({ jsonrpc: "2.0", result: `Order ${params.orderId} cancelled successfully`, id });
+
+    return res.json({
+      jsonrpc: "2.0",
+      result: `Order ${params.orderId} cancelled successfully`,
+      id,
+    });
   }
 
   // Action: getOrder
   if (method === "getOrder") {
     const order = orders.find((o) => o.id === params.orderId);
     if (!order) {
-      return res.json({ jsonrpc: "2.0", error: { code: -32602, message: "Order not found" }, id });
+      return res.json({
+        jsonrpc: "2.0",
+        error: { code: -32602, message: "Order not found" },
+        id,
+      });
     }
     return res.json({ jsonrpc: "2.0", result: order, id });
   }
@@ -127,18 +233,30 @@ app.post("/rpc", (req, res) => {
   if (method === "updateStatus") {
     const order = orders.find((o) => o.id === params.orderId);
     if (!order) {
-      return res.json({ jsonrpc: "2.0", error: { code: -32602, message: "Order not found" }, id });
+      return res.json({
+        jsonrpc: "2.0",
+        error: { code: -32602, message: "Order not found" },
+        id,
+      });
     }
     order.status = params.status;
-    
+
     // Broadcast status change to clients via WebSocket
     io.emit("orderStatusUpdate", { id: params.orderId, status: order.status });
-    
-    return res.json({ jsonrpc: "2.0", result: `Order ${params.orderId} status updated to ${params.status}`, id });
+
+    return res.json({
+      jsonrpc: "2.0",
+      result: `Order ${params.orderId} status updated to ${params.status}`,
+      id,
+    });
   }
 
   // Method not found fallback
-  return res.json({ jsonrpc: "2.0", error: { code: -32601, message: "Method not found" }, id });
+  return res.json({
+    jsonrpc: "2.0",
+    error: { code: -32601, message: "Method not found" },
+    id,
+  });
 });
 
 // ==========================================
@@ -154,9 +272,9 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (data) => {
     if (data.room) {
       socket.join(data.room);
-      socket.to(data.room).emit("roomNotice", { 
-        room: data.room, 
-        text: `${data.name || 'Someone'} joined as ${data.role === 'agent' ? 'an agent' : 'a customer'}` 
+      socket.to(data.room).emit("roomNotice", {
+        room: data.room,
+        text: `${data.name || "Someone"} joined as ${data.role === "agent" ? "an agent" : "a customer"}`,
       });
     }
   });
@@ -164,7 +282,12 @@ io.on("connection", (socket) => {
   socket.on("leaveRoom", (data) => {
     if (data.room) {
       socket.leave(data.room);
-      socket.to(data.room).emit("roomNotice", { room: data.room, text: `A user has left the room.` });
+      socket
+        .to(data.room)
+        .emit("roomNotice", {
+          room: data.room,
+          text: `A user has left the room.`,
+        });
     }
   });
 
